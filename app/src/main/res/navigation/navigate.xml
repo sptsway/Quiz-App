@@ -16,8 +16,8 @@
             app:destination="@id/gameWonFragment"
             app:popUpTo="@id/title_frag" />
         <action
-            android:id="@+id/action_gameFragment_to_gameOverFragment2"
-            app:destination="@id/gameOverFragment2"
+            android:id="@+id/action_gameFragment_to_gameOverFragment"
+            app:destination="@id/gameOverFragment"
             app:popUpTo="@id/title_frag" />
     </fragment>
     <fragment
@@ -30,17 +30,23 @@
     </fragment>
     <fragment
         android:id="@+id/gameWonFragment"
-        android:name="com.example.android.navigation.GameWonFragment"
+        android:name="example.com.my_quiz.GameWonFragment"
         android:label="WIN">
         <action
             android:id="@+id/action_gameWonFragment_to_gameFragment3"
             app:destination="@id/gameFragment"
             app:popUpTo="@id/title_frag"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="numQuestions"
+            app:argType="integer" />
+        <argument
+            android:name="numCorrect"
+            app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@+id/gameOverFragment2"
-        android:name="com.example.android.navigation.GameOverFragment"
+        android:id="@+id/gameOverFragment"
+        android:name="example.com.my_quiz.GameOverFragment"
         android:label="GAME OVER"
         tools:layout="@layout/fragment_game_over">
         <action
@@ -48,10 +54,16 @@
             app:destination="@id/gameFragment"
             app:popUpTo="@id/title_frag"
             app:popUpToInclusive="false" />
+        <argument
+            android:name="numQuestions"
+            app:argType="integer" />
+        <argument
+            android:name="numCorrect"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.example.android.navigation.AboutFragment"
+        android:name="example.com.my_quiz.AboutFragment"
         android:label="About Game"
         tools:layout="@layout/fragment_about" />
 </navigation>

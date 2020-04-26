@@ -1,4 +1,4 @@
-package com.example.android.navigation
+package example.com.my_quiz
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
