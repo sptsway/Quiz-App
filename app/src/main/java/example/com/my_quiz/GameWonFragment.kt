@@ -1,9 +1,9 @@
-package com.example.android.navigation
+package example.com.my_quiz
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -22,6 +22,37 @@ class GameWonFragment : Fragment() {
         binding.nextMatchButton.setOnClickListener { view : View->
             view.findNavController().navigate(R.id.action_gameWonFragment_to_gameFragment3)
         }
+
+        val args= arguments?.let { GameWonFragmentArgs.fromBundle(it) }
+        if (args != null) {
+            Toast.makeText(context,"All Correct: ${args.numCorrect}/${args.numQuestions}",Toast.LENGTH_SHORT).show()
+        }
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.share_win,menu)
+    }
+
+    private fun getShareIntent() : Intent{
+        val args= arguments?.let { GameWonFragmentArgs.fromBundle(it) }
+        val send = Intent(Intent.ACTION_SEND)
+        val str: String= "I scored ${args?.numCorrect?:0}/${args?.numQuestions?:3} in My Quiz App developed by tt89"
+        send.setType("text/plain").putExtra(Intent.EXTRA_TEXT,str)
+
+        return send
+    }
+
+    private fun sharesuccess(){
+        startActivity(getShareIntent())
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.share-> sharesuccess()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
