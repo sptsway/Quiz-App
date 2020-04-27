@@ -3,30 +3,33 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
+        android:layout_height="match_parent">
 
-        <fragment
-            android:id="@+id/myNavHostFragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
+        <LinearLayout
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:navGraph="@navigation/navigate"
-            app:defaultNavHost="true" />
+            android:orientation="vertical"
+            tools:context=".MainActivity">
 
-        <!--fragment
-            android:id="@+id/title"
-            android:name="example.com.my_quiz.title_frag"
-            android:layout_width="match_parent"
+            <fragment
+                android:id="@+id/myNavHostFragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:navGraph="@navigation/navigate"
+                app:defaultNavHost="true" />
+        </LinearLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navView"
+            android:layout_gravity="start"
             android:layout_height="match_parent"
-             androidx.navigation.fragment.NavHostFragment
-             /-->
-
-
-
-    </LinearLayout>
+            android:layout_width="match_parent"
+            app:menu="@menu/nav_drawer"
+            app:headerLayout="@layout/nav_header"/>
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

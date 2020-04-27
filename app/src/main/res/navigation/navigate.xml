@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigate"
+    android:label="Rules"
     app:startDestination="@id/title_frag">
 
 
@@ -74,4 +75,9 @@
         android:name="example.com.my_quiz.AboutFragment"
         android:label="About Game"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/rulesFragment"
+        android:name="example.com.my_quiz.RulesFragment"
+        android:label="fragment_rules"
+        tools:layout="@layout/fragment_rules" />
 </navigation>

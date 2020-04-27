@@ -15,4 +15,5 @@
     <string name="title_android_trivia_question">MY QUIZ APP</string>
     <string name="about">about</string>
     <string name="share">share</string>
+    <string name="rules">Rules</string>
 </resources>
