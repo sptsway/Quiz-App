@@ -2,13 +2,13 @@ package example.com.my_quiz
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.renderscript.ScriptGroup
+//import android.renderscript.ScriptGroup
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavHostController
+//import androidx.navigation.NavHostController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import example.com.my_quiz.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
+//import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
