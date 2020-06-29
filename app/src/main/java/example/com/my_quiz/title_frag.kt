@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -21,9 +20,12 @@ class title_frag : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding : FragmentTitleBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_title,container,false)
-        binding.button.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_title_frag_to_gameFragment)
-        )
+        binding.button.setOnClickListener {
+            val startTime : Long= System.currentTimeMillis()
+            //Navigation.createNavigateOnClickListener(R.id.action_title_frag_to_gameFragment)
+            //Navigation.createNavigateOnClickListener()
+            view?.findNavController()?.navigate(title_fragDirections.actionTitleFragToGameFragment(startTime))
+        }
         setHasOptionsMenu(true)
         return binding.root
         }
@@ -36,7 +38,6 @@ class title_frag : Fragment() {
     @SuppressLint("UseRequireInsteadOfGet")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, view!!.findNavController()) || super.onOptionsItemSelected(item)
-
     }
 }
 

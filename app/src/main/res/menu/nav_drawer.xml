@@ -9,4 +9,8 @@
         android:id="@+id/aboutFragment"
         android:icon="@drawable/android"
         android:title="@string/about" />
+    <item
+        android:id="@+id/highScoreFragment"
+        android:icon="@drawable/android_category_simple"
+        android:title="@string/high_scores" />
 </menu>

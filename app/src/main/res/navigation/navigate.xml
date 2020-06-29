@@ -28,6 +28,9 @@
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/title_frag" />
+        <argument
+            android:name="startTime"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/title_frag"
@@ -80,4 +83,9 @@
         android:name="example.com.my_quiz.RulesFragment"
         android:label="fragment_rules"
         tools:layout="@layout/fragment_rules" />
+    <fragment
+        android:id="@+id/highScoreFragment"
+        android:name="example.com.my_quiz.highScoreFragment"
+        android:label="fragment_high_score"
+        tools:layout="@layout/fragment_high_score" />
 </navigation>

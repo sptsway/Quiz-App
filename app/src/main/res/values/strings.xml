@@ -16,4 +16,6 @@
     <string name="about">about</string>
     <string name="share">share</string>
     <string name="rules">Rules</string>
+    <string name="clear_scores">Clear Scores</string>
+    <string name="high_scores">High Scores</string>
 </resources>

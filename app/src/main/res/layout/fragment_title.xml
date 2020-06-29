@@ -19,7 +19,7 @@
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="20dp"
             android:contentDescription="@string/todo"
-            app:srcCompat="@drawable/about_android_trivia" />
+            app:srcCompat="@drawable/android" />
 
         <Button
             android:id="@+id/button"

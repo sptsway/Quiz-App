@@ -1,13 +1,17 @@
 package example.com.my_quiz
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import example.com.my_quiz.database.databaseHandler
+import example.com.my_quiz.database.myScore
 import example.com.my_quiz.databinding.FragmentGameBinding
 
 //import com.example.android.navigation.databinding.FragmentGameBinding
@@ -22,32 +26,32 @@ class GameFragment : Fragment() {
     // All questions must have four answers.  We'd want these to contain references to string
     // resources so we could internationalize. (or better yet, not define the questions in code...)
     private val questions: MutableList<Question> = mutableListOf(
-            Question(text = "What is Android Jetpack?",
-                    answers = listOf("all of these", "tools", "documentation", "libraries")),
-            Question(text = "Base class for Layout?",
-                    answers = listOf("ViewGroup", "ViewSet", "ViewCollection", "ViewRoot")),
-            Question(text = "Layout for complex Screens?",
-                    answers = listOf("ConstraintLayout", "GridLayout", "LinearLayout", "FrameLayout")),
-            Question(text = "Pushing structured data into a Layout?",
-                    answers = listOf("Data Binding", "Data Pushing", "Set Text", "OnClick")),
-            Question(text = "Inflate layout in fragments?",
-                    answers = listOf("onCreateView", "onActivityCreated", "onCreateLayout", "onInflateLayout")),
+            Question(text = "India is a federal union comprising twenty-nine states and how many union territories?",
+                    answers = listOf("7", "6", "8", "9")),
+            Question(text = " Which of the following states is not located in the North?",
+                    answers = listOf("Jharkhand", "Jammu and Kashmir", "Himachal Pradesh", "Haryana")),
+            Question(text = "The World Largest desert is ?",
+                    answers = listOf("Sahara", "Kalahari", "Thar", "Sonoran")),
+            Question(text = "How many sides are there in a triangle?",
+                    answers = listOf("3", "4", "6", "5")),
+            Question(text = "How many consonants are there in the English alphabet?",
+                    answers = listOf("21", "20", "5", "26")),
             Question(text = "Build system for Android?",
                     answers = listOf("Gradle", "Graddle", "Grodle", "Groyle")),
-            Question(text = "Android vector format?",
-                    answers = listOf("VectorDrawable", "AndroidVectorDrawable", "DrawableVector", "AndroidVector")),
-            Question(text = "Android Navigation Component?",
-                    answers = listOf("NavController", "NavCentral", "NavMaster", "NavSwitcher")),
-            Question(text = "Registers app with launcher?",
-                    answers = listOf("intent-filter", "app-registry", "launcher-registry", "app-launcher")),
-            Question(text = "Mark a layout for Data Binding?",
-                    answers = listOf("<layout>", "<binding>", "<data-binding>", "<dbinding>"))
+            Question(text = "How many days are there in the month of February in a leap year?",
+                    answers = listOf("29", "31", "28", "30")),
+            Question(text = "Which is the largest animal in the world?",
+                    answers = listOf("Blue whale", "Lion", "Elephant", "Giraffe")),
+            Question(text = "Which festival is called the festival of light?",
+                    answers = listOf("Diwali", "Holi", "Raksha Bandhan", "Durga Puja")),
+            Question(text = "What is the top color in a rainbow?",
+                    answers = listOf("Red", "Violet", "Blue", "Sky"))
     )
 
     lateinit var currentQuestion: Question
     lateinit var answers: MutableList<String>
     private var questionIndex = 0
-    private val numQuestions = Math.min((questions.size + 1) / 2, 3)
+    private val numQuestions = Math.min((questions.size+1) / 2, 5)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -55,6 +59,7 @@ class GameFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentGameBinding>(
                 inflater, R.layout.fragment_game, container, false)
+        val args= arguments?.let { GameFragmentArgs.fromBundle(it) }
 
         // Shuffles the questions and sets the question index to the first question.
         randomizeQuestions()
@@ -85,10 +90,30 @@ class GameFragment : Fragment() {
                         binding.invalidateAll()
                     } else {
                         // We've won!  Navigate to the gameWonFragment.
+                        val endTime : Long = System.currentTimeMillis()
+                        val duration : Double = (endTime.toDouble()- (args?.startTime ?: 0).toDouble())/1000
+                        //val duration : Long = endTime- (args?.startTime ?:0)
+                        //Toast.makeText(context,"Duaration : $duration ",Toast.LENGTH_SHORT).show()
+
+                        val curScore= myScore(questionIndex,duration)
+                        val db= databaseHandler(context!!)
+                        db.insertScore(curScore)
+
                         view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment(numQuestions,questionIndex))
                     }
                 } else {
                     // Game over! A wrong answer sends us to the gameOverFragment.
+                    val endTime : Long = System.currentTimeMillis()
+                    val duration : Double = (endTime.toDouble()- (args?.startTime ?: 0).toDouble())/1000
+                    //Toast.makeText(context,"Duaration : $duration ",Toast.LENGTH_SHORT).show()
+                    //val duration : Long = endTime- (args?.startTime ?:0)
+
+                    val curScore= myScore(questionIndex,duration)
+                    val db= context?.let { databaseHandler(it) }
+                    if (db != null) {
+                        db.insertScore(curScore)
+                    }
+
                     view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment(numQuestions,questionIndex))
                 }
             }

@@ -5,8 +5,8 @@ import android.os.Bundle
 //import android.renderscript.ScriptGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
+//import androidx.navigation.NavController
+//import androidx.navigation.NavDestination
 //import androidx.navigation.NavHostController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.navView,navcontrol)
 
         // prevent nav gesture if not on start destination
-        navcontrol.addOnDestinationChangedListener { nc, nd, args ->
+        navcontrol.addOnDestinationChangedListener { nc, nd, _ ->
             if (nd.id ==nc.graph.startDestination){
                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             }
