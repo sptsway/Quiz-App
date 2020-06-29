@@ -20,8 +20,10 @@ class GameOverFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding: FragmentGameOverBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game_over, container, false)
+
         binding.tryAgainButton.setOnClickListener { view : View->
-            view.findNavController().navigate(R.id.action_gameOverFragment2_to_gameFragment)
+            val startTime : Long = System.currentTimeMillis()
+            view.findNavController().navigate(GameOverFragmentDirections.actionGameOverFragment2ToGameFragment(startTime))
         }
 
         val args= arguments?.let { GameOverFragmentArgs.fromBundle(it) }
